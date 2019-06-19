@@ -194,12 +194,12 @@
             
             $_SESSION['message'] = ""; ?>
       </p> </center> <br>
-
       <?php
+          require 'dbh/dbh.php';
+
         $sql = "SELECT DISTINCT projects.Project_id,REF_NUM,title,Description FROM Beneficiary_Fields,projects WHERE Projects.Project_id = Beneficiary_Fields.Project_id";
         $result = mysqli_query($Conn,$sql);
         $confirm = mysqli_num_rows($result);
-
         if ($confirm > 0)
         {
           echo "<div class='row'>
@@ -217,11 +217,9 @@
             $Description = $row['Description'];
             $Project_id = $row['Project_id'];
           }
-
           $sql1 = "SELECT DISTINCT Field FROM Beneficiary_Fields WHERE Project_id = $Project_id";
           $result1 = mysqli_query($Conn,$sql1);
           $confirm1 = mysqli_num_rows($result1);
-
           if($confirm1 > 0)
           {
             $k = 0;
@@ -231,62 +229,50 @@
                    echo "<th>".$row1['Field']."</th>";
                  }
                  echo "</tr>"."<t/thead>";
-                 $sql2 = "SELECT Data FROM beneficiary_data WHERE Project_id = $Project_id";
-                 $result2 = mysqli_query($Conn,$sql2);
-                 $confirm2 = mysqli_num_rows($result2);
-
-                 if ($confirm2)
-                 {
-                  $heads = array();
-                   echo "<tbody>";
-
-                   while ($row2 = mysqli_fetch_assoc($result2))
-                   {
-                            array_push($heads, $row2['Data']);
-
-                   }
-        $sql3 = "SELECT DISTINCT projects.Project_id,REF_NUM,title,Description FROM Beneficiary_Fields,projects WHERE Projects.Project_id = Beneficiary_Fields.Project_id";
-        $result3 = mysqli_query($Conn,$sql3);
-        $confirm3 = mysqli_num_rows($result3);
-
-        if ($confirm3 > 0)
-        {
-            while ($row = mysqli_fetch_assoc($result3))
-              {
-                $REF_NUM = $row['REF_NUM'];
-                $title = $row['title'];
-                $Description = $row['Description'];
-                $Project_id = $row['Project_id'];
-                
-
-                  echo "<tr>".
-                  "<td>".$REF_NUM."</td>".
-                  "<td>".$title."</td>";
-
-                  foreach ($heads as $a)
-                    {
-                          echo "<td>".$a."</td>";  
-                    }
-                    echo "</tr>";
-
-              }
-        }
-
-  
-                    
-                  }
-
-            echo     "</div> </tbody>
-                   </div>
-                  </div>
-                </div>";
           }
 
+          $sql = "SELECT DISTINCT token FROM beneficiary_data";
+          $result = mysqli_query($Conn,$sql);
+          $confirm = mysqli_num_rows($result);
+
+          if($confirm > 0)
+          {
+            echo "<tbody>";
+            $ids = array();
+            while($row = mysqli_fetch_assoc($result))
+            {
+              array_push($ids,$row['token']);
+            }
+            foreach ($ids as $id)
+            {
+              $sql = "SELECT * FROM beneficiary_data WHERE token = $id";
+              $result = mysqli_query($Conn,$sql);
+              $confirm = mysqli_num_rows($result);
+
+              if($confirm > 0)
+              {
+                echo "<tr>";
+                echo "<td>".$REF_NUM."</td>";
+                echo "<td>".$title."</td>";
+                while($row = mysqli_fetch_assoc($result))
+                {
+
+                   echo "<td>".$row['Data']."</td>";
+
+                }
+                echo "</tr>";
+              }
+
+            }
+            echo "</tbody>";
+            echo "</div>
+                  </div>
+                </div>
+              </div>";
+            
+          }
         }
-
-
       ?>
-
 <!--       <div class="row">
         <div class="col-md-12">
           <div class="tile">
