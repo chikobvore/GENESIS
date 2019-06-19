@@ -10,7 +10,7 @@ if(isset($_POST['contact']) && isset($_POST['organization']) && isset($_POST['Ad
 	$email = $_POST['email'];
 	$specilization = $_POST['specilization'];
 	$donoted = $_POST['donated'];
-	$region = $_POST['region'];
+	$region = $_POST['regions'];
 	$Disbursement = $_POST['globaldisbursement'];
 
 

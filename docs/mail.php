@@ -223,13 +223,13 @@ session_start();
               <?php
               require 'dbh/dbh.php';
 
-                  $to = "somebody@example.com";
-                  $subject = "My subject";
-                  $txt = "Hello world!";
-                  $headers = "From: webmaster@example.com" . "\r\n" .
-                  "CC: somebodyelse@example.com";
+                  // $to = "somebody@example.com";
+                  // $subject = "My subject";
+                  // $txt = "Hello world!";
+                  // $headers = "From: webmaster@example.com" . "\r\n" .
+                  // "CC: somebodyelse@example.com";
 
-                  mail($to,$subject,$txt,$headers);
+                  // mail($to,$subject,$txt,$headers);
 
               if (isset($_POST['search']))
               {
