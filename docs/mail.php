@@ -22,6 +22,15 @@ session_start();
     function Less(){
       document.getElementById('1').style.display = 'none';
     }
+    function toggle(source)
+    {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++)
+    {
+        if (checkboxes[i] != source)
+            checkboxes[i].checked = source.checked;
+    }
+}
       
     </script>
   </head>
@@ -190,170 +199,113 @@ session_start();
             
             $_SESSION['message'] = ""; ?>
       </p> </center> <br>
- 
+      <br>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="tile">
-            <h3 class="tile-title">Progress</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="tile">
-            <h3 class="tile-title">Complete Projects</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
-            </div> 
-          </div>
-        </div>
-      </div>
+            <div class="tile-body">
 
-      <div class="modal fade" id="newproposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content"  style="width: 700px;">
-            <div class="modal-header">
-              <h4>New Donor</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-              <form method="POST" action ="php/AddDonor.php">
-
-              <div class="form-group">
-                <label class="control-label">Organization</label>
-                <input type="text" name="organization" class="form-control" required="">
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Physical Address</label>
-                <textarea class="form-control" required="" name="Address">
-                  
-                </textarea>
-              </div>
-
-                <div class="form-group">
-                  <label class="control-label">Contact Person</label>
-                  <input type="text" name="contact" class="form-control" placeholder="Full name" required="">
-                </div>
-
-              <div class="form-group">
-                <label class="control-label">Email</label>
-                <input type="email" name="email" class="form-control">
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Specilization</label>
-                <input type="text" name="specilization" class="form-control">
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Region</label>
-                <input type="text" name="regions" class="form-control">
-              </div>
-
-                <div class="form-group">
-                <label class="control-label">Location</label>
-                <input type="text" name="regions" class="form-control">
-              </div>
-
-            <div class="form-group">
+              <center>
+                <h1>Search Recepient</h1>
+              </center><br>
+              <form method="POST" action="mail.php">
               <div class="row">
-                  <div class="col-md-4">
-                    <label class="control-label">Donor donated Before</label>
-                  </div>
-
-                  <div class="col-md-4">
-                    <label class="control-label">Yes</label>
-                    <input type="radio" name="donated" value="Yes" onclick="more()">
-                  </div>
-
-                  <div class="col-md-4">
-                    <label class="control-label">No</label>
-                    <input type="radio" name="donated" value="No" onclick="Less()">
-                  </div>
-              </div>
-            </div>
-
-            <div style="display: none;" id="1">
-              <label class="control-label">Projects Donoted by Donor</label>
-              <div class="row">
-                <div class="col-md-9">
-                  <label class="control-label">Project</label>
-                    <input type="text" name="1" class="form-control"><br>
-                    <input type="text" name="2" class="form-control"><br>
-                    <input type="text" name="3" class="form-control"><br>
-                    <input type="text" name="4" class="form-control"><br>
-                    <input type="text" name="5" class="form-control"><br>
+                <div class="col-md-10">
+                  <input type="text" name="search" class="form-control" required="">
                 </div>
-                <div class="col-md-3">
-                  <label class="control-label">Total Amount Donoted</label>
-                  <input type="text" name="6" class="form-control"><br>
-                  <input type="text" name="7" class="form-control"><br>
-                  <input type="text" name="8" class="form-control"><br>
-                  <input type="text" name="9" class="form-control"><br>
-                  <input type="text" name="10" class="form-control"><br>
+                <div class="col-md-2">
+                  <button class="btn btn-info" type="submit">Search</button>
                 </div>
-              </div>
-            </div>
-
-
-              <div class="form-group">
-                <label class="control-label">Global Disbursement</label>
-                <input type="text" name="globaldisbursement" class="form-control">
-              </div>
-
-            <div class="modal-footer">
-              <button class="btn btn-success" type="submit">Save Changes</button>
-            </div>
-
-            </form>
-
-          </div>
-        </div>
-      </div>
-      <!-- modal -->
-
-      <div class="modal fade" id="sendproposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content"  style="width: 700px;">
-            <div class="modal-header">
-              <h4>New Proposal</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div><br><br>
+              </form>
               
-            </div>
-            <div class="modal-body">
-              <form method = "POST" action = "BusinessDevelopment.php" enctype='multipart/form-data'>
-              <div class="form-group">
-                <?php if(empty($id))
-                    {
-                      echo "<label class= 'control-label'>"."Project ID"."</label>".
-                      "<input type ='text' name ='title' class = 'form-control' required = '' >";
-                    }else{
-                      echo "<label class= 'control-label'>"."Project ID"."</label>".
-                      "<input type ='text' name = 'title' class = 'form-control' value = $id readonly = ''>";
-                    }
-                 ?>
 
-              </div>
+              <?php
+              require 'dbh/dbh.php';
 
-              <div class="form-group">
-                <label class ="control-label">Attachments</label>
-                <input type = "file" class = "form-control" name = "file"><br>
-                <label class = "control-label">Description</label>
-                <input type = "text" class = "form-control" name = "file_description">
-              </div>
-          
-            <div class="modal-footer">
-              <button class="btn btn-success">Save Changes</button>
-            </div>
+                  $to = "somebody@example.com";
+                  $subject = "My subject";
+                  $txt = "Hello world!";
+                  $headers = "From: webmaster@example.com" . "\r\n" .
+                  "CC: somebodyelse@example.com";
 
-            </form>
+                  mail($to,$subject,$txt,$headers);
 
+              if (isset($_POST['search']))
+              {
+                $search = $_POST['search'];
+
+                $sql = "SELECT Organization,Email,Contact FROM donors WHERE 
+                          contact like '$search' OR
+                          Organization like '$search' OR
+                          Specilization like '$search' OR
+                          Email like '$search'";
+                $result = mysqli_query($Conn,$sql);
+                $confirm = mysqli_num_rows($result);
+
+                if ($confirm >0 ) {
+                echo "<table class= 'table'>
+                        <thead>
+                          <tr>
+                            <th>Organization</th>
+                            <th>Contact Person</th>
+                            <th>Email</th>
+                            <th>Tick to Email</th>
+                          </tr>
+                        </thead>
+                        <tbody>";
+                while ($row = mysqli_fetch_assoc($result))
+                        {
+                          echo "<tr>".
+                                    "<td>".$row['Organization']."</td>".
+                                    "<td>".$row['Contact']."</td>".
+                                    "<td>".$row['Email']."</td>".
+                                    "<td>"."<input type= 'checkbox'>"."</td>".
+                                "</tr>";
+                        }
+                        echo "</tbody>"."<table>";
+                }
+              }else{
+
+              $sql = "SELECT Organization,Email,Contact FROM donors";
+              $result = mysqli_query($Conn,$sql);
+              $confirm = mysqli_num_rows($result);
+
+              if ($confirm > 0)
+              {
+                echo "<table class= 'table'>
+                        <thead>
+                          <tr>
+                            <th>Organization</th>
+                            <th>Contact Person</th>
+                            <th>Email</th>
+                            <th>Tick to Email</th>
+                          </tr>
+                        </thead>
+                        <tbody>";
+                        while ($row = mysqli_fetch_assoc($result))
+                        {
+                          echo "<tr>".
+                                    "<td>".$row['Organization']."</td>".
+                                    "<td>".$row['Contact']."</td>".
+                                    "<td>".$row['Email']."</td>".
+                                    "<td>"."<input type= 'checkbox'>"."</td>".
+                                "</tr>";
+                        }
+                  echo "</tbody></table>";
+
+                }
+              }
+              ?>
+              <center>
+                <input type="checkbox" onclick="toggle(this);" />Check all?
+                <button type="submit" class="btn btn-info">Send Email</button>
+              </center>
+              
+            </div>     
           </div>
         </div>
       </div>
-      <!-- modal -->
     </main>
     <!-- Essential javascripts for application to work-->
     <script src="js/jquery-3.2.1.min.js"></script>
@@ -363,64 +315,6 @@ session_start();
     <!-- The javascript plugin to display page loading on top-->
     <script src="js/plugins/pace.min.js"></script>
     <!-- Page specific javascripts-->
-    <script type="text/javascript" src="js/plugins/chart.js"></script>
-    <script type="text/javascript">
-      var data = {
-      	labels: ["January", "February", "March", "April", "May"],
-      	datasets: [
-      		{
-      			label: "My First dataset",
-      			fillColor: "rgba(220,220,220,0.2)",
-      			strokeColor: "rgba(220,220,220,1)",
-      			pointColor: "rgba(220,220,220,1)",
-      			pointStrokeColor: "#fff",
-      			pointHighlightFill: "#fff",
-      			pointHighlightStroke: "rgba(220,220,220,1)",
-      			data: [65, 59, 80, 81, 56]
-      		},
-      		{
-      			label: "My Second dataset",
-      			fillColor: "rgba(151,187,205,0.2)",
-      			strokeColor: "rgba(151,187,205,1)",
-      			pointColor: "rgba(151,187,205,1)",
-      			pointStrokeColor: "#fff",
-      			pointHighlightFill: "#fff",
-      			pointHighlightStroke: "rgba(151,187,205,1)",
-      			data: [28, 48, 40, 19, 86]
-      		}
-      	]
-      };
-      var pdata = [
-      	{
-      		value: 300,
-      		color: "#46BFBD",
-      		highlight: "#5AD3D1",
-      		label: "Complete"
-      	},
-      	{
-      		value: 50,
-      		color:"#F7464A",
-      		highlight: "#FF5A5E",
-      		label: "In-Progress"
-      	}
-      ]
-      
-      var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-      var lineChart = new Chart(ctxl).Line(data);
-      
-      var ctxp = $("#pieChartDemo").get(0).getContext("2d");
-      var pieChart = new Chart(ctxp).Pie(pdata);
-    </script>
     <!-- Google analytics script-->
-    <script type="text/javascript">
-      if(document.location.hostname == 'pratikborsadiya.in') {
-      	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      	ga('create', 'UA-72504830-1', 'auto');
-      	ga('send', 'pageview');
-      }
-    </script>
   </body>
 </html>

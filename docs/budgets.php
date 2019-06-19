@@ -317,6 +317,7 @@
         <div class="col-md-6">
           <div class="tile">
             <div class="tile-body">
+              <form method="POST" action="php/export.php">
           <table class="table">
             <thead>
               <tr>
@@ -352,7 +353,7 @@
                                     "<td>".$row1['REF_NUM']."</td>".
                                     "<td>".$row1['title']."</td>".
                                     "<td>".$row1['Description']."</td>".
-                                    "<td>"."<input type = 'radio' class = 'form-control'>"."</td>".
+                                    "<td>"."<input type = 'radio' class = 'form-control' name = 'project' value = '$Project_id'>"."</td>".
                                 "</tr>";
                         }
                       }
@@ -367,7 +368,7 @@
             <center>
               <button type = 'submit' class= 'btn btn-info'>Export Budget</button>
             </center>
-              
+            </form>
           </div>
         </div>
         </div>

@@ -1,0 +1,26 @@
+custom notes- eg contact him betweeen 8-10 am,
+donor metrics such as their gift sizes,
+Keep tracking of the engagement frequence,
+mode of donations eg usd, euro,rtgs,yung,commodities
+
+
+TIME GMT,
+donation range,
+
+
+beneficiary data
+demographic datamale, females, age, religion,income, education,
+econo
+
+gender -male
+		female
+
+Religion -
+income - 
+education
+location
+marital status
+occupation
+
+
+

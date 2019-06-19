@@ -1,16 +1,12 @@
-<?php 
+<?php
 session_start();
- if (empty($_SESSION['Department']) OR $_SESSION['Department'] !== 'BUSINESS DEVELOPMENT')
- {
-  //  echo $_SESSION['Department'];
-   header('location: page-login.php');
- }
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>GENESIS V0.01</title>
     <!-- Main CSS-->
+    <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
@@ -18,11 +14,12 @@ session_start();
     <script type = "text/javascript">
     function more(){
       document.getElementById('1').style.display = 'contents';
+      document.getElementById('2').style.display = 'none';
     }
     function Less(){
       document.getElementById('1').style.display = 'none';
-    }
-      
+      document.getElementById('2').style.display = 'contents';
+    } 
     </script>
   </head>
   <body class="app sidebar-mini rtl">
@@ -79,13 +76,14 @@ session_start();
         <!-- User Menu-->
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
-            <li><a class="dropdown-item" href="#"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
+            <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a></li>
             <li><a class="dropdown-item" href="php/page-logout.php"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
           </ul>
         </li>
       </ul>
     </header>
+    
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
@@ -100,7 +98,7 @@ session_start();
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">New</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="#" data-toggle="modal"><i class="icon fa fa-circle-o"></i> Partner</a></li>
-            <li><a class="treeview-item" href="#newproposal" data-toggle = "modal"><i class="icon fa fa-circle-o"></i> Donor</a></li>
+            <li><a class="treeview-item" href="#newproposal" data-toggle = "modal"><i class="icon fa fa-circle-o"></i> Proposal</a></li>
             <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Document</a></li>
           </ul>
         </li>
@@ -149,211 +147,29 @@ session_start();
         </ul>
       </div>
       <div class="row">
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
-            <div class="info">
-              <h4>Donors</h4></h4>
-              <p><b>5</b></p>
+        <div class="col-md-12">
+          <div class="tile row">
+            <div class="col-md-3">
+              <div id="external-events">
+                <h4 class="mb-4">Draggable Events</h4>
+                <div class="fc-event">My Event 1</div>
+                <div class="fc-event">My Event 2</div>
+                <div class="fc-event">My Event 3</div>
+                <div class="fc-event">My Event 4</div>
+                <div class="fc-event">My Event 5</div>
+                <p class="animated-checkbox mt-20">
+                  <label>
+                    <input id="drop-remove" type="checkbox"><span class="label-text">Remove after drop</span>
+                  </label>
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small info coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
-            <div class="info">
-              <h4>Pending Projects</h4>
-              <p><b>25</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small warning coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
-            <div class="info">
-              <h4>Completed Projects</h4>
-              <p><b>10</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small danger coloured-icon"><i class="icon fa fa-star fa-3x"></i>
-            <div class="info">
-              <h4>Reports</h4>
-              <p><b>500</b></p>
+            <div class="col-md-9">
+              <div id="calendar"></div>
             </div>
           </div>
         </div>
       </div>
-      <center><p class="semibold-text mb-2" style="color: green;">
-      <?php 
-      if (!empty($_SESSION['message'])) {
-              echo $_SESSION['message'];
-            }else{ echo " ";} 
-            
-            $_SESSION['message'] = ""; ?>
-      </p> </center> <br>
- 
-      <div class="row">
-        <div class="col-md-6">
-          <div class="tile">
-            <h3 class="tile-title">Progress</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="tile">
-            <h3 class="tile-title">Complete Projects</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
-            </div> 
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="newproposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content"  style="width: 700px;">
-            <div class="modal-header">
-              <h4>New Donor</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-              <form method="POST" action ="php/AddDonor.php">
-
-              <div class="form-group">
-                <label class="control-label">Organization</label>
-                <input type="text" name="organization" class="form-control" required="">
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Physical Address</label>
-                <textarea class="form-control" required="" name="Address">
-                  
-                </textarea>
-              </div>
-
-                <div class="form-group">
-                  <label class="control-label">Contact Person</label>
-                  <input type="text" name="contact" class="form-control" placeholder="Full name" required="">
-                </div>
-
-              <div class="form-group">
-                <label class="control-label">Email</label>
-                <input type="email" name="email" class="form-control">
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Specilization</label>
-                <input type="text" name="specilization" class="form-control">
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Region</label>
-                <input type="text" name="regions" class="form-control">
-              </div>
-
-                <div class="form-group">
-                <label class="control-label">Location</label>
-                <input type="text" name="regions" class="form-control">
-              </div>
-
-            <div class="form-group">
-              <div class="row">
-                  <div class="col-md-4">
-                    <label class="control-label">Donor donated Before</label>
-                  </div>
-
-                  <div class="col-md-4">
-                    <label class="control-label">Yes</label>
-                    <input type="radio" name="donated" value="Yes" onclick="more()">
-                  </div>
-
-                  <div class="col-md-4">
-                    <label class="control-label">No</label>
-                    <input type="radio" name="donated" value="No" onclick="Less()">
-                  </div>
-              </div>
-            </div>
-
-            <div style="display: none;" id="1">
-              <label class="control-label">Projects Donoted by Donor</label>
-              <div class="row">
-                <div class="col-md-9">
-                  <label class="control-label">Project</label>
-                    <input type="text" name="1" class="form-control"><br>
-                    <input type="text" name="2" class="form-control"><br>
-                    <input type="text" name="3" class="form-control"><br>
-                    <input type="text" name="4" class="form-control"><br>
-                    <input type="text" name="5" class="form-control"><br>
-                </div>
-                <div class="col-md-3">
-                  <label class="control-label">Total Amount Donoted</label>
-                  <input type="text" name="6" class="form-control"><br>
-                  <input type="text" name="7" class="form-control"><br>
-                  <input type="text" name="8" class="form-control"><br>
-                  <input type="text" name="9" class="form-control"><br>
-                  <input type="text" name="10" class="form-control"><br>
-                </div>
-              </div>
-            </div>
-
-
-              <div class="form-group">
-                <label class="control-label">Global Disbursement</label>
-                <input type="text" name="globaldisbursement" class="form-control">
-              </div>
-
-            <div class="modal-footer">
-              <button class="btn btn-success" type="submit">Save Changes</button>
-            </div>
-
-            </form>
-
-          </div>
-        </div>
-      </div>
-      <!-- modal -->
-
-      <div class="modal fade" id="sendproposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content"  style="width: 700px;">
-            <div class="modal-header">
-              <h4>New Proposal</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              
-            </div>
-            <div class="modal-body">
-              <form method = "POST" action = "BusinessDevelopment.php" enctype='multipart/form-data'>
-              <div class="form-group">
-                <?php if(empty($id))
-                    {
-                      echo "<label class= 'control-label'>"."Project ID"."</label>".
-                      "<input type ='text' name ='title' class = 'form-control' required = '' >";
-                    }else{
-                      echo "<label class= 'control-label'>"."Project ID"."</label>".
-                      "<input type ='text' name = 'title' class = 'form-control' value = $id readonly = ''>";
-                    }
-                 ?>
-
-              </div>
-
-              <div class="form-group">
-                <label class ="control-label">Attachments</label>
-                <input type = "file" class = "form-control" name = "file"><br>
-                <label class = "control-label">Description</label>
-                <input type = "text" class = "form-control" name = "file_description">
-              </div>
-          
-            <div class="modal-footer">
-              <button class="btn btn-success">Save Changes</button>
-            </div>
-
-            </form>
-
-          </div>
-        </div>
-      </div>
-      <!-- modal -->
     </main>
     <!-- Essential javascripts for application to work-->
     <script src="js/jquery-3.2.1.min.js"></script>
@@ -363,53 +179,48 @@ session_start();
     <!-- The javascript plugin to display page loading on top-->
     <script src="js/plugins/pace.min.js"></script>
     <!-- Page specific javascripts-->
-    <script type="text/javascript" src="js/plugins/chart.js"></script>
+    <script type="text/javascript" src="js/plugins/moment.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery-ui.custom.min.js"></script>
+    <script type="text/javascript" src="js/plugins/fullcalendar.min.js"></script>
     <script type="text/javascript">
-      var data = {
-      	labels: ["January", "February", "March", "April", "May"],
-      	datasets: [
-      		{
-      			label: "My First dataset",
-      			fillColor: "rgba(220,220,220,0.2)",
-      			strokeColor: "rgba(220,220,220,1)",
-      			pointColor: "rgba(220,220,220,1)",
-      			pointStrokeColor: "#fff",
-      			pointHighlightFill: "#fff",
-      			pointHighlightStroke: "rgba(220,220,220,1)",
-      			data: [65, 59, 80, 81, 56]
+      $(document).ready(function() {
+      
+      	$('#external-events .fc-event').each(function() {
+      
+      		// store data so the calendar knows to render an event upon drop
+      		$(this).data('event', {
+      			title: $.trim($(this).text()), // use the element's text as the event title
+      			stick: true // maintain when user navigates (see docs on the renderEvent method)
+      		});
+      
+      		// make the event draggable using jQuery UI
+      		$(this).draggable({
+      			zIndex: 999,
+      			revert: true,      // will cause the event to go back to its
+      			revertDuration: 0  //  original position after the drag
+      		});
+      
+      	});
+      
+      	$('#calendar').fullCalendar({
+      		header: {
+      			left: 'prev,next today',
+      			center: 'title',
+      			right: 'month,agendaWeek,agendaDay'
       		},
-      		{
-      			label: "My Second dataset",
-      			fillColor: "rgba(151,187,205,0.2)",
-      			strokeColor: "rgba(151,187,205,1)",
-      			pointColor: "rgba(151,187,205,1)",
-      			pointStrokeColor: "#fff",
-      			pointHighlightFill: "#fff",
-      			pointHighlightStroke: "rgba(151,187,205,1)",
-      			data: [28, 48, 40, 19, 86]
+      		editable: true,
+      		droppable: true, // this allows things to be dropped onto the calendar
+      		drop: function() {
+      			// is the "remove after drop" checkbox checked?
+      			if ($('#drop-remove').is(':checked')) {
+      				// if so, remove the element from the "Draggable Events" list
+      				$(this).remove();
+      			}
       		}
-      	]
-      };
-      var pdata = [
-      	{
-      		value: 300,
-      		color: "#46BFBD",
-      		highlight: "#5AD3D1",
-      		label: "Complete"
-      	},
-      	{
-      		value: 50,
-      		color:"#F7464A",
-      		highlight: "#FF5A5E",
-      		label: "In-Progress"
-      	}
-      ]
+      	});
       
-      var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-      var lineChart = new Chart(ctxl).Line(data);
       
-      var ctxp = $("#pieChartDemo").get(0).getContext("2d");
-      var pieChart = new Chart(ctxp).Pie(pdata);
+      });
     </script>
     <!-- Google analytics script-->
     <script type="text/javascript">

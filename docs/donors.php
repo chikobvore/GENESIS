@@ -107,7 +107,7 @@ require 'dbh/dbh.php';
           </ul>
         </li>
         <li><a class="app-menu__item" href="donors.php"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Partners & Donors</span></a></li>
-        <li><a class="app-menu__item" href="page-calendar.html"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">Calendar</span></a></li>
+        <li><a class="app-menu__item" href="page-calendar.php"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">Calendar</span></a></li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-envelope"></i><span class="app-menu__label">External Communications</span></a></li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-book"></i></i><span class="app-menu__label">Knowledge and Learning</span></a></li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Analytics</span></a></li>
@@ -226,20 +226,12 @@ require 'dbh/dbh.php';
                       }
                   ?>
                 </tbody>
-              </table>
+              </table> 
+              <center>
+                <button type="submit" class="btn btn-info">Email</button>
+              </center>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <table class="table-hover">
-            <tr>
-              <th>Project title</th>
-              <th>Project ID</th>
-              <th>Click to request Summary</th>
-          </table>
         </div>
       </div>
 

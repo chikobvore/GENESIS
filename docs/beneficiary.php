@@ -27,30 +27,7 @@
       document.getElementById('1').style.display = 'none';
       document.getElementById('2').style.display = 'contents';
     }
-    function moresubs()
-    {
-      document.getElementById('3').style.display = 'contents';
-    }
-    function moresubs1()
-    {
-      document.getElementById('4').style.display = 'contents';
-    }
-    function moresubs2()
-    {
-      document.getElementById('5').style.display = 'contents';
-    }
-    function lessubs()
-    {
-       document.getElementById('3').style.display = 'none';
-    }
-    function lessubs1()
-    {
-       document.getElementById('4').style.display = 'none';
-    }
-    function lessubs2()
-    {
-       document.getElementById('5').style.display = 'none';
-    }
+      
     </script>
   </head>
   <body class="app sidebar-mini rtl">
@@ -128,14 +105,14 @@
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">New</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="#newproject" data-toggle="modal"><i class="icon fa fa-circle-o"></i>PROJECT</a></li>
-            <li><a class="treeview-item" href="#newproposal" data-toggle = "modal"><i class="icon fa fa-circle-o"></i>BENEFICIARY INFO</a></li>
+            <li><a class="treeview-item" href="#newproposal" data-toggle = "modal"><i class="icon fa fa-circle-o"></i>DOCUMENT</a></li>
             <li><a class="treeview-item" href="#budget" data-toggle ="modal"><i class="icon fa fa-circle-o"></i>BUDGET</a></li>
           </ul>
         </li>
         <!-- <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Charts</span></a></li> -->
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">PROJECTS</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="beneficiary.php"><i class="icon fa fa-circle-o"></i> BENEFICIARY DATA</a></li>
+            <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> BENEFICIARY DATA</a></li>
             <li><a class="treeview-item" href="budgets.php"><i class="icon fa fa-circle-o"></i> BUDGETS</a></li>
             <!-- <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Custom Components</a></li>
             <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Form Samples</a></li>
@@ -218,87 +195,146 @@
             $_SESSION['message'] = ""; ?>
       </p> </center> <br>
 
-      <div class="row">
+      <?php
+        $sql = "SELECT DISTINCT projects.Project_id,REF_NUM,title,Description FROM Beneficiary_Fields,projects WHERE Projects.Project_id = Beneficiary_Fields.Project_id";
+        $result = mysqli_query($Conn,$sql);
+        $confirm = mysqli_num_rows($result);
+
+        if ($confirm > 0)
+        {
+          echo "<div class='row'>
+                  <div class='col-md-12'>
+                    <div class='tile'>
+                      <div class='tile-body'>
+                        <table class='table table-hover table-bordered' id='sampleTable'>
+                          <thead>"."<tr>"."<th>REFERENCE NUMBER</th>".
+                                           "<th>Project Title</th>";
+        
+          while ($row = mysqli_fetch_assoc($result))
+          {
+            $REF_NUM = $row['REF_NUM'];
+            $title = $row['title'];
+            $Description = $row['Description'];
+            $Project_id = $row['Project_id'];
+          }
+
+          $sql1 = "SELECT DISTINCT Field FROM Beneficiary_Fields WHERE Project_id = $Project_id";
+          $result1 = mysqli_query($Conn,$sql1);
+          $confirm1 = mysqli_num_rows($result1);
+
+          if($confirm1 > 0)
+          {
+            $k = 0;
+                 while ($row1 = mysqli_fetch_assoc($result1))
+                 {
+                  $k = $k +1;
+                   echo "<th>".$row1['Field']."</th>";
+                 }
+                 echo "</tr>"."<t/thead>";
+                 $sql2 = "SELECT Data FROM beneficiary_data WHERE Project_id = $Project_id";
+                 $result2 = mysqli_query($Conn,$sql2);
+                 $confirm2 = mysqli_num_rows($result2);
+
+                 if ($confirm2)
+                 {
+                  $heads = array();
+                   echo "<tbody>";
+
+                   while ($row2 = mysqli_fetch_assoc($result2))
+                   {
+                            array_push($heads, $row2['Data']);
+
+                   }
+        $sql3 = "SELECT DISTINCT projects.Project_id,REF_NUM,title,Description FROM Beneficiary_Fields,projects WHERE Projects.Project_id = Beneficiary_Fields.Project_id";
+        $result3 = mysqli_query($Conn,$sql3);
+        $confirm3 = mysqli_num_rows($result3);
+
+        if ($confirm3 > 0)
+        {
+            while ($row = mysqli_fetch_assoc($result3))
+              {
+                $REF_NUM = $row['REF_NUM'];
+                $title = $row['title'];
+                $Description = $row['Description'];
+                $Project_id = $row['Project_id'];
+                
+
+                  echo "<tr>".
+                  "<td>".$REF_NUM."</td>".
+                  "<td>".$title."</td>";
+
+                  foreach ($heads as $a)
+                    {
+                          echo "<td>".$a."</td>";  
+                    }
+                    echo "</tr>";
+
+              }
+        }
+
+  
+                    
+                  }
+
+            echo     "</div> </tbody>
+                   </div>
+                  </div>
+                </div>";
+          }
+
+        }
+
+
+      ?>
+
+<!--       <div class="row">
         <div class="col-md-12">
           <div class="tile">
             <div class="tile-body">
               <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
-                    <th>Project ID</th>
+                    <th>REFERENCE NUMBER</th>
                     <th>Project Title</th>
-                    <th>Description</th>
-                    <th>Nature</th>
-                    <th>Status</th>
-                    <th>Files</th>
+                    <th>Beneficiary</th>
+                    <th>Location</th>
+                    <th>People</th>
+                    <th>Education</th>
+                    <th>Comment</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody> -->
                   <?php
-                    require 'dbh/dbh.php';
+                    // require 'dbh/dbh.php';
                     
-                    $sql = "SELECT REF_NUM,Project_id,Title,Description,Type FROM projects";
-                    $result = mysqli_query($Conn,$sql);
-                    $confirm = mysqli_num_rows($result);
+                    // $sql = "SELECT REF_NUM,Title,House_name,Location,Education,People,Comment FROM projects,beneficiary_data WHERE projects.Project_id = beneficiary_data.Project_id";
+                    // $result = mysqli_query($Conn,$sql);
+                    // $confirm = mysqli_num_rows($result);
 
-                    if($confirm > 0 )
-                    {
+                    // if($confirm > 0 )
+                    // {
         
-                      while($row = mysqli_fetch_assoc($result))
-                      {
-                        $title = $row['Title'];
-                        $Description = $row['Description'];
-                        $Type = $row['Type'];
-                        $Project_id = $row['Project_id'];
-                        $REF = $row['REF_NUM'];
-                        $path = "";
-                        $FDescription = "";
-
-                        $sql1 = "SELECT File_name,File_path,File_Description FROM project_files WHERE Project_id = $Project_id";
-                        $result1 = mysqli_query($Conn,$sql1);
-                        $confirm1 = mysqli_num_rows($result1);
-
-                        if($confirm1 > 0)
-                        {
-                          while($row1 = mysqli_fetch_assoc($result1))
-                          {
-                            $path = $row1['File_path'];
-                            $FDescription = $row1['File_Description'];
-                            $name = $row1['File_name'];
-
-                            echo 
-                            "<tr>".
-                                  "<td>".$REF."</td>".
-                                  "<td>".$title."</td>".
-                                  "<td>".$Description."</td>".
-                                  "<td>".$Type."</td>".
-                                  "<td>"."<i>"."PENDING.."."</i>"."</td>".
-                                  "<td>"."<a href = '$path'>".$FDescription."</a>"."</td>".
-                            "</tr>";
-                          }
-                        }else{
-                          echo 
-                            "<tr>".
-                                  "<td>".$REF."</td>".
-                                  "<td>".$title."</td>".
-                                  "<td>".$Description."</td>".
-                                  "<td>".$Type."</td>".
-                                  "<td>"."<i>"."PENDING.."."</i>"."</td>".
-                                  "<td>"."No Files uploaded"."</td>".
-                            "</tr>";
-                        }
-
-
-                      }
-                    }
+                    //   while($row = mysqli_fetch_assoc($result))
+                    //   {
+                    //     echo "<tr>".
+                    //               "<td>".$row['REF_NUM']."</td>".
+                    //               "<td>".$row['Title']."</td>".
+                    //               "<td>".$row['House_name']."</td>".
+                    //               "<td>".$row['Location']."</td>".
+                    //               "<td>".$row['People']."</td>".
+                    //               "<td>".$row['Education']."</td>".
+                    //               "<td>".$row['Comment']."</td>".
+                    //           "</tr>";
+                    //   }
+                    // }
 
                   ?>
-                </tbody>
+<!--                 </tbody>
               </table>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <?php
             require 'dbh/dbh.php';
             if(isset($_POST['title'])){
@@ -409,135 +445,40 @@
         }
     }
     ?>
-      <div class="modal fade" id="newproposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" id="newproposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content"  style="width: 700px;">
             <div class="modal-header">
-              <h4>New Beneficiary Data Information</h4>
+              <h4>New Proposal</h4>
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               
             </div>
             <div class="modal-body">
-                <form method="POST" action="php/addbeneficiary.php">
-                  <div class="form-group">
-                    <label class="control-label">Project</label>
-                    <select class="form-control" name="Project">
-                      <?php
-                      require 'dbh/dbh.php';
-                      $sql = "SELECT title,Project_id FROM projects";
-                      $result = mysqli_query($Conn,$sql);
-                      $confirm = mysqli_num_rows($result);
+                <?php if(empty($id))
+                    {echo 
+                      "<form method = 'POST' action = 'BusinessDevelopment.php' enctype='multipart/form-data'>".
+                      "<div class='form-group'>".
+                        "<label class= 'control-label'>"."Project ID"."</label>".
+                        "<input type ='text' name ='title' class = 'form-control' required = '' >".
+                      "</div>";
+                    }else{
+                      echo 
+                        "<form method = 'POST' action = 'BusinessDevelopment.php' enctype='multipart/form-data'>".
+                        "<div class='form-group'>".
+                          "<label class= 'control-label'>"."Project ID"."</label>".
+                          "<input type ='text' name = 'title' class = 'form-control' value = $id readonly = ''>".
+                        "</div>";
 
-                      if($confirm >0 )
-                      {
-                        while ($row = mysqli_fetch_assoc($result))
-                        {
-                          $Project_id = $row['Project_id'];
-                          echo "<option value = '$Project_id'>".$row['title']."</option>";                       
-                        }
-                      }
-                      ?>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label class="control-label">Field</label>
-                        <input type="text" name="Field0" class="form-control">
-                      </div>
-                      <div class="col-md-6">
-
-                        <label class="control-label">Categories</label><br>
-
-                        <div class="row">
-                          <div class="col-md-6">
-                              <label class="control-label">Yes</label>
-                              <input type="radio" name="Subfield0" value="yes" required="" onclick="moresubs()">
-                          </div>
-                          <div class="col-md-6">
-                              <label class="control-label">No</label>
-                              <input type="radio" name="Subfield0" value="no" required="" onclick="lessubs()">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                     <div id="3" style="display: none;">
-                      <label class="control-label">Category</label>
-                          <input type="text" name="sub00" class="form-control"><br>
-                          <input type="text" name="sub01" class="form-control"><br>
-                          <input type="text" name="sub02" class="form-control"><br>
-                          <input type="text" name="sub03" class="form-control"><br>
-                          <input type="text" name="sub04" class="form-control"><br>
-                     </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label class="control-label">Field</label>
-                        <input type="text" name="Field1" class="form-control">
-                      </div>
-                      <div class="col-md-6">
-
-                        <label class="control-label">Categories</label><br>
-
-                        <div class="row">
-                          <div class="col-md-6">
-                              <label class="control-label">Yes</label>
-                              <input type="radio" name="Subfield1" value="yes" onclick="moresubs1()">
-                          </div>
-                          <div class="col-md-6">
-                              <label class="control-label">No</label>
-                              <input type="radio" name="Subfield1" value="no" onclick="lessubs1()">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="4" style="display: none;">
-                      <label class="control-label">Category</label>
-                          <input type="text" name="sub10" class="form-control"><br>
-                          <input type="text" name="sub11" class="form-control"><br>
-                          <input type="text" name="sub12" class="form-control"><br>
-                          <input type="text" name="sub13" class="form-control"><br>
-                          <input type="text" name="sub14" class="form-control"><br>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label class="control-label">Field</label>
-                        <input type="text" name="Field2" class="form-control">
-                      </div>
-                      <div class="col-md-6">
-
-                        <label class="control-label">Categories</label><br>
-
-                        <div class="row">
-                          <div class="col-md-6">
-                              <label class="control-label">Yes</label>
-                              <input type="radio" name="Subfield2" value="yes" onclick="moresubs2()">
-                          </div>
-                          <div class="col-md-6">
-                              <label class="control-label">No</label>
-                              <input type="radio" name="Subfield2" value="no" onclick="lessubs2()">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="5" style="display: none;">
-                      <label class="control-label">Category</label>
-                          <input type="text" name="sub20" class="form-control"><br>
-                          <input type="text" name="sub21" class="form-control"><br>
-                          <input type="text" name="sub22" class="form-control"><br>
-                          <input type="text" name="sub23" class="form-control"><br>
-                          <input type="text" name="sub23" class="form-control"><br>
-                    </div>
-                  </div>
-
-
+                        echo
+                            "<div class='form-group'>".
+                            "<label class ='control-label'>"."Attachments"."</label>".
+                            "<input type = 'file' class = 'form-control' name = 'file' required = ''>"."<br>".
+                            "<label class = 'control-label'>"."Description"."</label>".
+                            "<input type = 'text' class = 'form-control' name = 'file_description' required= ''>".
+                          "</div>";
+                    }
+                 ?>
+              </div>
             <div class="modal-footer">
               <button class="btn btn-success">Save Changes</button>
             </div>
@@ -622,6 +563,91 @@
 
 
       
+
+      <div class="modal fade" id="newproject" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content"  style="width: 700px;">
+            <div class="modal-header">
+              <h4>New Project</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              
+            </div>
+            <div class="modal-body">
+              <form method = "POST" action = "php/addproject.php">
+              <div class="form-group">
+                <label class= "control-label">Project Title</label>
+                <input type ="text" name ="title" class ="form-control" required = ''>
+              </div>
+
+              <div class="form-group">
+                <label class = "control-label">Project Description</label>
+                <textarea class = "form-control" name = "description" required = "">
+
+                </textarea>
+              </div>
+
+              <div class="form-group">
+                <label class= "control-label">Type of Project</label>
+                <select name= "type" class= "form-control">
+                  <option>Agriculture Project</option>
+                  <option>Energy Project</option>
+                </select>
+              </div>
+
+              <!-- <div class="form-group">
+                <label class ="control-label">Attachments</label>
+                <input type = "file" class = "form-control" name = "file"><br>
+                <label class = "control-label">Description</label>
+                <input type = "text" class = "form-control" name = "file_description">
+              </div>
+
+              <div class="form-group">
+                <label class = "control-label"><b>Resources</b></label>
+                <div class="row">
+                  <div class="col-md-9">
+                    <label class = "control-label">Resource</label>
+                    <input type = "text" class = "form-control">
+                  </div>
+                  <div class="col-md-3">
+                    <label class = "control-label">Estimated Cost</label>
+                    <input type = "text" class = "form-control">
+                  </div>
+                </div><br>
+                
+                <div id = '1' style = "display: none;">
+                <div class="form-group">
+                  <div class="row">
+                  <div class="col-md-9">
+                    <input type = "text" class = "form-control"><br>
+                    <input type = "text" class = "form-control"><br>
+                    <input type = "text" class = "form-control"><br>
+                    <input type = "text" class = "form-control"><br>
+                    <input type = "text" class = "form-control"><br>
+                  </div>
+                  <div class="col-md-3">
+                    <input type = "text" class = "form-control"><br>
+                    <input type = "text" class = "form-control"><br>
+                    <input type = "text" class = "form-control"><br>
+                    <input type = "text" class = "form-control"><br>
+                    <input type = "text" class = "form-control"><br>
+                  </div>
+                  </div>
+                  <button class = "btn btn-info" style = "float: right;" onclick = "Less()">Less</button><br>
+                </div>
+                </div>
+                
+                <button id = '2' class = "btn btn-info" style = "float: right;" onclick = "more()">More</button><br>
+              </div> -->
+          
+            <div class="modal-footer">
+              <button class="btn btn-success">Save Changes</button>
+            </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
 
 
     </main>

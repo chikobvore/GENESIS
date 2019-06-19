@@ -59,3 +59,30 @@ CREATE TABLE Donated(
     PRIMARY KEY(Item_id),
     FOREIGN KEY (Donor_id) REFERENCES Donors(Donor_id)
 )
+CREATE TABLE Beneficiary_Data(
+    id INT NOT NULL AUTO_INCREMENT,
+    Project_id int,
+    Field varchar(255),
+    Data varchar(255),
+
+    PRIMARY KEY (id),
+    FOREIGN KEY (Project_id) REFERENCES Projects (Project_id)
+)
+CREATE TABLE Beneficiary_Fields(
+    Field_id INT NOT NULL AUTO_INCREMENT,
+    Project_id INT,
+    Field varchar(255),
+
+    PRIMARY KEY(Field_id),
+    FOREIGN KEY (Project_id) REFERENCES Projects (Project_id)
+)
+CREATE TABLE Beneficiary_Subfields(
+    Subfield_id INT NOT NULL AUTO_INCREMENT,
+    Field_id INT,
+    Project_id INT,
+    Subfield varchar(255),
+
+    PRIMARY KEY(Subfield_id),
+    FOREIGN KEY (Project_id) REFERENCES Projects (Project_id),
+    FOREIGN KEY (Field_id) REFERENCES Beneficiary_Fields (Field_id)
+)

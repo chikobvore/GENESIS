@@ -190,23 +190,104 @@
           <div class="tile">
             <h3 class="tile-title">Beneficiary Data</h3>
             <div class="form quick-post">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" method="POST" action="Field.php">
+
                       <div class="form-group">
+                        <label class="control-label col-lg-2" for="title">Project Reference</label>
+                        <div class="col-lg-12">
+                          <input type="text" class="form-control" name ="ref">
+                        </div>
+                      </div>
+                      <center>
+                        <button class="btn btn-info" type="submit">Reference</button>
+                      </center>
+                    </form>
+                      
+
+                      <?php
+                      if (isset($_POST['ref']))
+                      {
+                        $ref =  $_POST['ref'];
+
+                        $sql = "SELECT Project_id FROM projects WHERE REF_NUM = '$ref'";
+                        $result = mysqli_query($Conn,$sql);
+                        $confirm = mysqli_num_rows($result);
+
+                        if($confirm >0)
+                        {
+                          while ($row = mysqli_fetch_assoc($result))
+                          {
+                            $Project_id = $row['Project_id'];
+                          }
+                          $sql = "SELECT Field,Field_id FROM Beneficiary_fields WHERE Project_id = $Project_id";
+                          $result = mysqli_query($Conn,$sql);
+                          $confirm = mysqli_num_rows($result);
+
+                          if ($confirm >0)
+                          {
+                            echo "<form method = 'POST' action= 'php/adddata.php'>";
+                            $i = 0;
+                            while ($row = mysqli_fetch_assoc($result))
+                            {
+                              $name = 'name'.$i;
+                              $field = 'field'.$i;
+                              $value = $row['Field'];
+                              echo "<div class= 'form-group'>";
+                              $Field_id = $row['Field_id'];
+                              echo "<label class = 'control-label'>".$row['Field']."</label>";
+                            echo "<input type = 'hidden' name = '$field' value= '$value'>";
+
+                              $sql1 = "SELECT subfield FROM Beneficiary_subfields WHERE Field_id = $Field_id";
+                              $result1 = mysqli_query($Conn,$sql1);
+                              $confirm1 = mysqli_num_rows($result1);
+                              if ($confirm1  > 0)
+                              {
+
+                                echo "<select class = 'form-control' name = '$name'>";
+                                while ($row1 = mysqli_fetch_assoc($result1))
+                                {
+                                  echo "<option>".$row1['subfield']."</option>";
+                                }
+                                echo "</select>";
+                              }else{
+                                echo "<input type = 'text' class = 'form-control' name = '$name'>";
+                              }
+                              echo "</div>";
+                              $i = $i + 1;
+                            }
+                            echo "<input type = 'hidden' name = 'id' value = '$Project_id'>";
+                            echo "
+                      <center>
+                        <div class='form-group'>
+                          <div class='col-lg-offset-2 col-lg-12'>
+                             <button type='submit' class='btn btn-primary'>Publish</button>
+                             <button type='#'' class='btn btn-info'>Save Draft</button>
+                             <button type='reset' class='btn btn-default'>Reset</button>
+                        </div>
+                        </center>
+                      </div>";
+
+                          }
+                        }
+                      }
+                      ?>
+
+                      <!-- <div class="form-group">
                         <label class="control-label col-lg-2" for="title">House Name</label>
                         <div class="col-lg-12">
-                          <input type="text" class="form-control" id="title">
+                          <input type="text" class="form-control" name="hname">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-lg-2" for="title">Location</label>
                         <div class="col-lg-12">
-                          <input type="text" class="form-control" id="title">
+                          <input type="text" class="form-control" name ="location">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-lg-2" for="title">Highest Educational Level</label>
                         <div class="col-lg-12">
-                            <select class="form-control">
+                            <select class="form-control" name="education">
                               <option>PHD</option>
                               <option>Masters</option>
                               <option>Degree</option>
@@ -219,31 +300,24 @@
                       <div class="form-group">
                         <label class="control-label col-lg-2" for="title">Total Number of People</label>
                         <div class="col-lg-12">
-                          <input type="Number" class="form-control" id="title" min="0">
+                          <input type="Number" class="form-control" name="people" min="0">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-lg-2" for="content">Comments</label>
                         <div class="col-lg-12">
-                          <textarea class="form-control" id="content"></textarea>
+                          <textarea class="form-control" name ="comment"></textarea>
                         </div>
-                      </div>
+                      </div> -->
 
-                      <div class="form-group">
-                        <label class="control-label col-lg-2" for="tags">Tags</label>
-                        <div class="col-lg-12">
-                          <input type="text" class="form-control" id="tags">
-                        </div>
-                      </div>
-
-                      <div class="form-group">
+  <!--                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-12">
                           <button type="submit" class="btn btn-primary">Publish</button>
                           <button type="#" class="btn btn-info">Save Draft</button>
                           <button type="reset" class="btn btn-default">Reset</button>
                         </div>
                       </div>
-                    </form>
+                    </form> -->
 </div>
 </div>
 </div>
