@@ -16,7 +16,6 @@ session_start();
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="shortcut icon" href="images/favicon.ico">
 
-
     <script type = "text/javascript">
     function more(){
       document.getElementById('1').style.display = 'contents';
@@ -24,15 +23,6 @@ session_start();
     function Less(){
       document.getElementById('1').style.display = 'none';
     }
-    function toggle(source)
-    {
-    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    for (var i = 0; i < checkboxes.length; i++)
-    {
-        if (checkboxes[i] != source)
-            checkboxes[i].checked = source.checked;
-    }
-}
       
     </script>
   </head>
@@ -117,7 +107,7 @@ session_start();
         </li>
         <li><a class="app-menu__item" href="donors.php"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Partners & Donors</span></a></li>
         <li><a class="app-menu__item" href="page-calendar.php"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">Calendar</span></a></li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-envelope"></i><span class="app-menu__label">External Communications</span></a></li>
+        <li><a class="app-menu__item" href="mail.php"><i class="app-menu__icon fa fa-envelope"></i><span class="app-menu__label">External Communications</span></a></li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-book"></i></i><span class="app-menu__label">Knowledge and Learning</span></a></li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Analytics</span></a></li>
         <!-- <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Analytics</span><i class="treeview-indicator fa fa-angle-right"></i></a>
