@@ -14,6 +14,8 @@ require 'dbh/dbh.php';
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="shortcut icon" href="images/favicon.ico">
+
 
     <script type = "text/javascript">
     function more(){

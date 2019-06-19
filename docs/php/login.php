@@ -78,10 +78,14 @@ if (isset($_POST['Username']) && isset($_POST['Password']))
              else{
                session_start();
                $_SESSION['login'] =  "Invalid Password";
-               header('location: ../pages/page-login.php');
+               header('location: ../page-login.php');
              }
    			
-   		}
+   		}else{
+        session_start();
+        $_SESSION['login'] =  "Sorry We could not find that username";
+        header('location: ../page-login.php');
+       }
 
 	}catch (Exception $e)
 	{

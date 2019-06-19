@@ -29,11 +29,21 @@
                                             {
                                                 header("location: ../page-login.php");
                                             }else{
-                                                echo "Error5: " . $sql . "<br>" . $Conn->error;
+                                              session_start();
+                                              $_SESSION['login'] =  "Signing up Failed Please Try again";
+                                              header('location: ../page-login.php');
                                               }
+                  }else{
+                    session_start();
+                    $_SESSION['login'] =  "Sorry We could not find that username,try again";
+                    header('location: ../page-login.php');
                   }
                    
                             
+              }else{
+                session_start();
+                $_SESSION['login'] =  "Password Mismatch Signup again";
+                header('location: ../page-login.php');
               }
            
   }else{

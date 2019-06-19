@@ -26,7 +26,8 @@ session_start();
         <form class="login-form" method = "POST" action="php/login.php" >
         <center><p class="semibold-text mb-2" style="color: red;"><?php if (!empty($_SESSION['login'])) {
               echo $_SESSION['login'];
-            }else{ echo " ";} ?></p> </center> <br>
+            }else{ echo " ";} 
+            $_SESSION['login'] = ""; ?></p> </center> <br>
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
           <div class="form-group">
             <label class="control-label">USERNAME</label>
