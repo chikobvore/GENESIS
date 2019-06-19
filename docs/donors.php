@@ -1,8 +1,8 @@
 <?php 
 session_start();
-require 'dbh/dbh.php';
  if (empty($_SESSION['Department']) OR $_SESSION['Department'] !== 'BUSINESS DEVELOPMENT')
  {
+  //  echo $_SESSION['Department'];
    header('location: page-login.php');
  }
 ?>
@@ -16,22 +16,19 @@ require 'dbh/dbh.php';
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="shortcut icon" href="images/favicon.ico">
 
-
     <script type = "text/javascript">
     function more(){
       document.getElementById('1').style.display = 'contents';
-      document.getElementById('2').style.display = 'none';
     }
     function Less(){
       document.getElementById('1').style.display = 'none';
-      document.getElementById('2').style.display = 'contents';
     }
       
     </script>
   </head>
   <body class="app sidebar-mini rtl">
     <!-- Navbar-->
-    <header class="app-header"><a class="app-header__logo" href="index.html">GENESIS</a>
+    <header class="app-header"><a class="app-header__logo" href="#">GENESIS</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
@@ -104,13 +101,13 @@ require 'dbh/dbh.php';
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">New</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="#" data-toggle="modal"><i class="icon fa fa-circle-o"></i> Partner</a></li>
-            <li><a class="treeview-item" href="#newproposal" data-toggle = "modal"><i class="icon fa fa-circle-o"></i> Proposal</a></li>
+            <li><a class="treeview-item" href="#newproposal" data-toggle = "modal"><i class="icon fa fa-circle-o"></i> Donor</a></li>
             <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Document</a></li>
           </ul>
         </li>
         <li><a class="app-menu__item" href="donors.php"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Partners & Donors</span></a></li>
         <li><a class="app-menu__item" href="page-calendar.php"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">Calendar</span></a></li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-envelope"></i><span class="app-menu__label">External Communications</span></a></li>
+        <li><a class="app-menu__item" href="mail.php"><i class="app-menu__icon fa fa-envelope"></i><span class="app-menu__label">External Communications</span></a></li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-book"></i></i><span class="app-menu__label">Knowledge and Learning</span></a></li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Analytics</span></a></li>
         <!-- <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Analytics</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -204,6 +201,9 @@ require 'dbh/dbh.php';
                 </thead>
                 <tbody>
                   <?php
+
+                      require 'dbh/dbh.php';
+
                       $sql = "SELECT Organization,Physical_Address,Email,Specilization,Donoted,Disbursement,Region FROM Donors";
                       $result = mysqli_query($Conn,$sql);
                       $confirm = mysqli_num_rows($result);
