@@ -50,7 +50,7 @@
 
                 if($Conn->query($sql2)==TRUE)
                 {
-                   header('location: ')
+                   header('location: Project_Manager.php');
                 }
                 else{
                     echo "Error1: " . $sql2 . "<br>" . $Conn->error;
