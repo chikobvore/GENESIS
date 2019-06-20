@@ -25,6 +25,13 @@ session_start();
     }
       
     </script>
+    <style>
+      .footer{
+        /* background: black;
+        padding: 50px;
+        margin: 50px; */
+      }
+    </style>
   </head>
   <body class="app sidebar-mini rtl">
     <!-- Navbar-->
@@ -265,10 +272,42 @@ session_start();
                       {
                         $search = $_POST['search'];
                         $words = explode(" ",$search);
-
+                        echo 
+                              "<div class='footer1'><center>";           
+                                echo "<button class='btn btn-default' style = 'margin: 20px;'>"."Images"."</button>";
+                                echo "<button class='btn btn-default' style = 'margin: 20px;'>"."Videos"."</button>";
+                                echo "<button class='btn btn-default' style = 'margin: 20px;'>"."Documents"."</button>";
+                          echo "</div></center>";
+;
                         foreach ($words as $word)
                         {
-                          
+                          $sql = "SELECT DISTINCT Title,Description,Type,File_path,File_description,File_name FROM projects,project_files WHERE projects.Project_id = project_files.project_id AND 
+                                  file_description = '$word'";
+                          $result = mysqli_query($Conn,$sql);
+                          $confirm = mysqli_num_rows($result);
+                          if($confirm > 0)
+                          {
+                            echo "<table class = 'table'>"."<thead>".
+                                          "<tr>".
+                                              "<th>"."Title"."</th>".
+                                              "<th>"."Description"."</th>".
+                                              "<th>"."Type"."</th>".
+                                              "<th>"."File Name"."</th>".
+                                          "</tr>"."</thead>"."<tbody>";
+                            while ($row = mysqli_fetch_assoc($result))
+                            {
+                              $path = $row['File_path'];
+                              $FDescription = $row['File_description'];
+                              $name = $row['File_name'];
+                              echo "<tr>".
+                                        "<td>".$row['Title']."</td>".
+                                        "<td>".$row['Description']."</td>".
+                                        "<td>".$row['Type']."</td>".
+                                        "<td>"."<a href = '$path'>".$FDescription."</a>"."</td>".
+                              "</tr>";     
+                            }
+                            echo "</tbody>"."</table>";
+                          }
                         }
                       }
 

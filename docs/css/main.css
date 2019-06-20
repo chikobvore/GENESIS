@@ -14878,6 +14878,10 @@ be a descendant of the grid when it is being dragged.
           justify-content: center;
   min-height: 100vh;
 }
+.footer{
+  padding: 30px;
+  margin: 50px;
+}
 
 .login-content .logo {
   margin-bottom: 40px;
