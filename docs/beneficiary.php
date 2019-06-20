@@ -273,54 +273,6 @@
           }
         }
       ?>
-<!--       <div class="row">
-        <div class="col-md-12">
-          <div class="tile">
-            <div class="tile-body">
-              <table class="table table-hover table-bordered" id="sampleTable">
-                <thead>
-                  <tr>
-                    <th>REFERENCE NUMBER</th>
-                    <th>Project Title</th>
-                    <th>Beneficiary</th>
-                    <th>Location</th>
-                    <th>People</th>
-                    <th>Education</th>
-                    <th>Comment</th>
-                  </tr>
-                </thead>
-                <tbody> -->
-                  <?php
-                    // require 'dbh/dbh.php';
-                    
-                    // $sql = "SELECT REF_NUM,Title,House_name,Location,Education,People,Comment FROM projects,beneficiary_data WHERE projects.Project_id = beneficiary_data.Project_id";
-                    // $result = mysqli_query($Conn,$sql);
-                    // $confirm = mysqli_num_rows($result);
-
-                    // if($confirm > 0 )
-                    // {
-        
-                    //   while($row = mysqli_fetch_assoc($result))
-                    //   {
-                    //     echo "<tr>".
-                    //               "<td>".$row['REF_NUM']."</td>".
-                    //               "<td>".$row['Title']."</td>".
-                    //               "<td>".$row['House_name']."</td>".
-                    //               "<td>".$row['Location']."</td>".
-                    //               "<td>".$row['People']."</td>".
-                    //               "<td>".$row['Education']."</td>".
-                    //               "<td>".$row['Comment']."</td>".
-                    //           "</tr>";
-                    //   }
-                    // }
-
-                  ?>
-<!--                 </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div> -->
       <?php
             require 'dbh/dbh.php';
             if(isset($_POST['title'])){

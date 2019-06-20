@@ -130,6 +130,7 @@
             <li><a class="treeview-item" href="#newproject" data-toggle="modal"><i class="icon fa fa-circle-o"></i>PROJECT</a></li>
             <li><a class="treeview-item" href="#newproposal" data-toggle = "modal"><i class="icon fa fa-circle-o"></i>BENEFICIARY INFO</a></li>
             <li><a class="treeview-item" href="#budget" data-toggle ="modal"><i class="icon fa fa-circle-o"></i>BUDGET</a></li>
+            <li><a class="treeview-item" href="#newdoc" data-toggle ="modal"><i class="icon fa fa-circle-o"></i>FILE</a></li>
           </ul>
         </li>
         <!-- <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Charts</span></a></li> -->
@@ -170,8 +171,8 @@
         </div>
         <ul class="app-breadcrumb breadcrumb side">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active"><a href="#">Data Table</a></li>
+          <li class="breadcrumb-item">Project Manager</li>
+          <li class="breadcrumb-item active"><a href="#">Dashboard</a></li>
         </ul>
       </div>
       <div class="row">
@@ -326,7 +327,7 @@
                             echo "<center>".
                                       // "<input type = 'file' class = 'form-control' name = 'file'>".
                                       "<button class='btn btn-danger' href='BusinessDevelopment.php' data-toggle='modal'>"."<span class='glyphicon glyphicon-remove'>"."</span>"."Deny"."</button>"."&nbsp".
-                                      "<button class='btn btn-success' href='#newproposal' data-toggle='modal'>"."<span class='glyphicon glyphicon-remove'>"."</span>"."Accept"."</button>".
+                                      "<button class='btn btn-success' href='#newdoc' data-toggle='modal'>"."<span class='glyphicon glyphicon-remove'>"."</span>"."Accept"."</button>".
                                   "</center>";
                             echo "</div>".
                           "</div>".
@@ -409,6 +410,123 @@
         }
     }
     ?>
+          <div class="modal fade" id="budget" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content"  style="width: 700px;">
+            <div class="modal-header">
+              <h4>New BUDGET</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label class = "control-label"><b>Resources</b></label>
+                <form method = "POST" action = "php/addbudget.php">
+                <div class="form-group">
+                    <label class= "control-label">Project ID</label>
+                    <input type = "text" class = "form-control" name = 'pid'><BR>
+                  </div>
+                <div class="row">
+    
+                  <div class="col-md-9">
+                    <label class = "control-label">Resource</label>
+                    <input type = "text" class = "form-control" name= '1' required = ''><br>
+                    <input type = "text" class = "form-control" name= '2'><br>
+                    <input type = "text" class = "form-control" name= '3'><br>
+                    <input type = "text" class = "form-control" name= '4'><br>
+                    <input type = "text" class = "form-control" name= '5'><br>
+                    <input type = "text" class = "form-control" name= '6'><br>
+                  </div>
+                  <div class="col-md-3">
+                    <label class = "control-label">Estimated Cost</label>
+                    <input type = "text" class = "form-control" name= '7' required = ''><br>
+                    <input type = "text" class = "form-control" name= '8'><br>
+                    <input type = "text" class = "form-control" name= '9'><br>
+                    <input type = "text" class = "form-control" name= '10'><br>
+                    <input type = "text" class = "form-control" name= '11'><br>
+                    <input type = "text" class = "form-control" name= '12'><br>
+                  </div>
+                </div>
+                <br>
+              <div id = '1' style = "display: none;">
+                <div class="form-group">
+                  <div class="row">
+                  <div class="col-md-9">
+                    <input type = "text" class = "form-control" name= '13'><br>
+                    <input type = "text" class = "form-control" name= '14'><br>
+                    <input type = "text" class = "form-control" name= '15'><br>
+                    <input type = "text" class = "form-control" name= '16'><br>
+                    <input type = "text" class = "form-control" name= '17'><br>
+                  </div>
+                  <div class="col-md-3">
+                    <input type = "text" class = "form-control" name= '18'><br>
+                    <input type = "text" class = "form-control" name= '19'><br>
+                    <input type = "text" class = "form-control" name= '20'><br>
+                    <input type = "text" class = "form-control" name= '21'><br>
+                    <input type = "text" class = "form-control" name= '22'><br>
+                  </div>
+                  </div>
+                  <button class = "btn btn-info" style = "float: right;" onclick = "Less()">Less</button><br>
+                </div>
+                </div>
+                
+                <button id = '2' class = "btn btn-info" style = "float: right;" onclick = "more()">More</button><br>
+
+              </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-success" type = "submit">Save Changes</button>
+                  </div>
+                  </form>
+            </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="newdoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content"  style="width: 700px;">
+            <div class="modal-header">
+              <h4>New Proposal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              
+            </div>
+            <div class="modal-body">
+                <?php if(empty($id))
+                    {echo 
+                      "<form method = 'POST' action = 'Project_Manager.php' enctype='multipart/form-data'>".
+                      "<div class='form-group'>".
+                        "<label class= 'control-label'>"."Project ID"."</label>".
+                        "<input type ='text' name ='title' class = 'form-control' required = '' >".
+                      "</div>";
+                    }else{
+                      echo 
+                        "<form method = 'POST' action = 'Project_Manager.php' enctype='multipart/form-data'>".
+                        "<div class='form-group'>".
+                          "<label class= 'control-label'>"."Project ID"."</label>".
+                          "<input type ='text' name = 'title' class = 'form-control' value = $id readonly = ''>".
+                        "</div>";
+
+                        echo
+                            "<div class='form-group'>".
+                            "<label class ='control-label'>"."Attachments"."</label>".
+                            "<input type = 'file' class = 'form-control' name = 'file' required = ''>"."<br>".
+                            "<label class = 'control-label'>"."Description"."</label>".
+                            "<input type = 'text' class = 'form-control' name = 'file_description' required= ''>".
+                          "</div>";
+                    }
+                 ?>
+              </div>
+            <div class="modal-footer">
+              <button class="btn btn-success">Save Changes</button>
+            </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+      <!-- modal -->
+
       <div class="modal fade" id="newproposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content"  style="width: 700px;">
@@ -621,6 +739,136 @@
         </div>
 
 
+      <div class="modal fade" id="newdoc1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content"  style="width: 700px;">
+            <div class="modal-header">
+              <h4>New Proposal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-success">Save Changes</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- modal -->
+
+      <?php
+            require 'dbh/dbh.php';
+            if(isset($_POST['title'])){
+              $id = $_POST['title'];
+
+              $sql = "SELECT * FROM Projects WHERE REF_NUM = '$id'";
+              $result = mysqli_query($Conn,$sql);
+              $confirm = mysqli_num_rows($result);
+
+              if($confirm > 0)
+              {
+                echo "<div class='row'>".
+                        "<div class='col-md-12'>".
+                          "<div class='tile'>".
+                            "<div class='tile-body'>".
+                             "<center>".
+                              "<p>"."Are you sure you want to this project"."</p>".
+                             "</center>";
+                             while($row = mysqli_fetch_assoc($result))
+                             {
+                               echo "<b>"."Title: "."</b>".$row['Title']."<br>".
+                                    "<b>"."Description: "."</b>".$row['Description']."<br>".
+                                    "<b>"."Nature: "."</b>".$row['Type']."<br>";
+                             }
+                            echo "<center>".
+                                      // "<input type = 'file' class = 'form-control' name = 'file'>".
+                                      "<button class='btn btn-danger' href='BusinessDevelopment.php' data-toggle='modal'>"."<span class='glyphicon glyphicon-remove'>"."</span>"."Deny"."</button>"."&nbsp".
+                                      "<button class='btn btn-success' href='#newproposal' data-toggle='modal'>"."<span class='glyphicon glyphicon-remove'>"."</span>"."Accept"."</button>".
+                                  "</center>";
+                            echo "</div>".
+                          "</div>".
+                        "</div>".
+                    "</div>";
+              }
+            else{
+              echo "<div class='row'>".
+              "<div class='col-md-12'>".
+                "<div class='tile'>".
+                  "<div class='tile-body'>".
+                   "<center>".
+                      "<h4>"."No Project Found for that Reference"."</h4>".
+                    "</center>".
+                  "</div>"."</div>"."</div>"."</div>";
+            }
+            }
+      ?>
+      <?php
+    require 'dbh/dbh.php';
+
+    if(isset($_POST['title']) && isset($_POST['file_description']))
+    {
+        $id = $_POST['title'];
+        $sql = "SELECT Project_id FROM projects WHERE REF_NUM = '$id'";
+        $result = mysqli_query($Conn,$sql);
+        $confirm = mysqli_num_rows($result);
+
+        if($confirm > 0 )
+        {
+            while($row = mysqli_fetch_assoc($result))
+            {
+                $Project_id = $row['Project_id'];
+            }
+                $descript = $_POST['file_description'];
+                $target_dir = "files/";
+                $target_file = $target_dir . basename($_FILES["file"]["name"]);
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+                            //check if  file is already there
+                if (file_exists($target_file))
+                {
+                    $_SESSION['message'] = "Sorry, file already exists.";
+                    $uploadOk = 0;
+                }
+
+                if ($_FILES["file"]["size"] > 5000000)
+                {
+                    $_SESSION['message'] = "Sorry, your file is too large.";
+                    $uploadOk = 0;
+
+                }
+
+                if ($uploadOk == 0) 
+                {
+                  $_SESSION['message'] = "";  
+                  echo "error";
+                }
+                
+                if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file))
+                {
+                    $_SESSION['message'] = "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
+                    $filename = basename($_FILES['file']['name']);
+                    $filepath = "files/".$filename;
+                    
+                    $sql2  = "INSERT INTO Project_Files(Project_id,File_name, File_description,File_path)
+                    VALUES($Project_id,'$filename','$descript','$filepath')";
+
+                    if($Conn->query($sql2)===TRUE)
+                    {
+                      $_SESSION['message'] = "Document successfully uploaded";
+                      header('location: Project_Manager.php');
+                    }
+                    else{
+                        echo "Error1: " . $sql2 . "<br>" . $Conn->error;
+                    }
+                }
+
+            
+        }
+    }
+    ?>
       
 
 

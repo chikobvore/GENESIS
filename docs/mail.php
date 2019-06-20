@@ -172,7 +172,7 @@ session_start();
             <div class="tile-body">
 
               <center>
-                <h1>Search Recepient</h1>
+                <h1>Search Recipient</h1>
               </center><br>
               <form method="POST" action="mail.php">
               <div class="row">
