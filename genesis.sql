@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2019 at 03:06 PM
+-- Generation Time: Jun 21, 2019 at 01:57 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.28
 
@@ -21,6 +21,94 @@ SET time_zone = "+00:00";
 --
 -- Database: `genesis`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `beneficiary_data`
+--
+
+CREATE TABLE `beneficiary_data` (
+  `id` int(11) NOT NULL,
+  `Staff_id` varchar(255) NOT NULL,
+  `Project_id` int(11) DEFAULT NULL,
+  `Token` int(11) NOT NULL,
+  `Field` varchar(255) DEFAULT NULL,
+  `Data` varchar(255) DEFAULT NULL,
+  `Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `beneficiary_data`
+--
+
+INSERT INTO `beneficiary_data` (`id`, `Staff_id`, `Project_id`, `Token`, `Field`, `Data`, `Created`, `Updated`) VALUES
+(25, '2222', 25, 1, 'Gender', 'Male', '2019-06-19 12:33:40', '0000-00-00 00:00:00'),
+(26, '2222', 25, 1, 'Education', 'A', '2019-06-19 12:33:40', '0000-00-00 00:00:00'),
+(27, '2222', 25, 1, 'Location', 'Msasq', '2019-06-19 12:33:41', '0000-00-00 00:00:00'),
+(28, '2222', 25, 1, 'Marital Status', 'Single', '2019-06-19 12:33:41', '0000-00-00 00:00:00'),
+(29, '2222', 25, 28, 'Gender', 'Male', '2019-06-19 12:34:16', '0000-00-00 00:00:00'),
+(30, '2222', 25, 28, 'Education', 'A', '2019-06-19 12:34:16', '0000-00-00 00:00:00'),
+(31, '2222', 25, 28, 'Location', 'Msasq', '2019-06-19 12:34:16', '0000-00-00 00:00:00'),
+(32, '2222', 25, 28, 'Marital Status', 'Single', '2019-06-19 12:34:16', '0000-00-00 00:00:00'),
+(33, '2222', 25, 32, 'Gender', 'Male', '2019-06-19 12:36:19', '0000-00-00 00:00:00'),
+(34, '2222', 25, 32, 'Education', 'A', '2019-06-19 12:36:19', '0000-00-00 00:00:00'),
+(35, '2222', 25, 32, 'Location', 'Harare', '2019-06-19 12:36:19', '0000-00-00 00:00:00'),
+(36, '2222', 25, 32, 'Marital Status', 'Single', '2019-06-19 12:36:19', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `beneficiary_fields`
+--
+
+CREATE TABLE `beneficiary_fields` (
+  `Field_id` int(11) NOT NULL,
+  `Project_id` int(11) DEFAULT NULL,
+  `Field` varchar(255) DEFAULT NULL,
+  `Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `beneficiary_fields`
+--
+
+INSERT INTO `beneficiary_fields` (`Field_id`, `Project_id`, `Field`, `Created`, `Updated`) VALUES
+(10, 25, 'Gender', '2019-06-18 09:17:07', '0000-00-00 00:00:00'),
+(11, 25, 'Education', '2019-06-18 09:17:07', '0000-00-00 00:00:00'),
+(12, 25, 'Location', '2019-06-18 09:17:07', '0000-00-00 00:00:00'),
+(13, 25, 'Marital Status', '2019-06-18 09:36:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `beneficiary_subfields`
+--
+
+CREATE TABLE `beneficiary_subfields` (
+  `Subfield_id` int(11) NOT NULL,
+  `Field_id` int(11) DEFAULT NULL,
+  `Project_id` int(11) DEFAULT NULL,
+  `Subfield` varchar(255) DEFAULT NULL,
+  `Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `beneficiary_subfields`
+--
+
+INSERT INTO `beneficiary_subfields` (`Subfield_id`, `Field_id`, `Project_id`, `Subfield`, `Created`, `Updated`) VALUES
+(8, 10, 25, 'Male', '2019-06-18 09:17:07', '0000-00-00 00:00:00'),
+(9, 10, 25, 'Female', '2019-06-18 09:17:07', '0000-00-00 00:00:00'),
+(10, 11, 25, 'A', '2019-06-18 09:17:07', '0000-00-00 00:00:00'),
+(11, 11, 25, 'B', '2019-06-18 09:17:07', '0000-00-00 00:00:00'),
+(12, 11, 25, 'C', '2019-06-18 09:17:07', '0000-00-00 00:00:00'),
+(13, 13, 25, 'Single', '2019-06-18 09:36:00', '0000-00-00 00:00:00'),
+(14, 13, 25, 'Divorced', '2019-06-18 09:36:00', '0000-00-00 00:00:00'),
+(15, 13, 25, 'Widow', '2019-06-18 09:36:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -177,8 +265,42 @@ CREATE TABLE `project_files` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `project_files`
+--
+
+INSERT INTO `project_files` (`File_id`, `Project_id`, `File_name`, `File_description`, `File_path`, `Created`, `Updated`) VALUES
+(16, 25, 'demo.png', 'Test1', 'files/demo.png', '2019-06-20 09:42:14', '0000-00-00 00:00:00'),
+(17, 25, 'BHKV2877 (1).jpg', 'Test2', 'files/BHKV2877 (1).jpg', '2019-06-20 09:46:34', '0000-00-00 00:00:00'),
+(18, 25, 'GDDS2082 (1).jpg', 'a', 'files/GDDS2082 (1).jpg', '2019-06-20 09:46:51', '0000-00-00 00:00:00'),
+(19, 23, 'DMFL7223.jpg', 'AA', 'files/DMFL7223.jpg', '2019-06-20 12:47:41', '0000-00-00 00:00:00'),
+(20, 24, 'JLYL6852.JPG', 'aSED', 'files/JLYL6852.JPG', '2019-06-20 12:48:24', '0000-00-00 00:00:00'),
+(21, 26, 'THSK4041.jpg', 'Qas', 'files/THSK4041.jpg', '2019-06-20 12:48:57', '0000-00-00 00:00:00');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `beneficiary_data`
+--
+ALTER TABLE `beneficiary_data`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Project_id` (`Project_id`);
+
+--
+-- Indexes for table `beneficiary_fields`
+--
+ALTER TABLE `beneficiary_fields`
+  ADD PRIMARY KEY (`Field_id`),
+  ADD KEY `Project_id` (`Project_id`);
+
+--
+-- Indexes for table `beneficiary_subfields`
+--
+ALTER TABLE `beneficiary_subfields`
+  ADD PRIMARY KEY (`Subfield_id`),
+  ADD KEY `Project_id` (`Project_id`),
+  ADD KEY `Field_id` (`Field_id`);
 
 --
 -- Indexes for table `donated`
@@ -224,6 +346,24 @@ ALTER TABLE `project_files`
 --
 
 --
+-- AUTO_INCREMENT for table `beneficiary_data`
+--
+ALTER TABLE `beneficiary_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `beneficiary_fields`
+--
+ALTER TABLE `beneficiary_fields`
+  MODIFY `Field_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `beneficiary_subfields`
+--
+ALTER TABLE `beneficiary_subfields`
+  MODIFY `Subfield_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT for table `donated`
 --
 ALTER TABLE `donated`
@@ -251,11 +391,30 @@ ALTER TABLE `projects_budgets`
 -- AUTO_INCREMENT for table `project_files`
 --
 ALTER TABLE `project_files`
-  MODIFY `File_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `File_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `beneficiary_data`
+--
+ALTER TABLE `beneficiary_data`
+  ADD CONSTRAINT `beneficiary_data_ibfk_1` FOREIGN KEY (`Project_id`) REFERENCES `projects` (`Project_id`);
+
+--
+-- Constraints for table `beneficiary_fields`
+--
+ALTER TABLE `beneficiary_fields`
+  ADD CONSTRAINT `beneficiary_fields_ibfk_1` FOREIGN KEY (`Project_id`) REFERENCES `projects` (`Project_id`);
+
+--
+-- Constraints for table `beneficiary_subfields`
+--
+ALTER TABLE `beneficiary_subfields`
+  ADD CONSTRAINT `beneficiary_subfields_ibfk_1` FOREIGN KEY (`Project_id`) REFERENCES `projects` (`Project_id`),
+  ADD CONSTRAINT `beneficiary_subfields_ibfk_2` FOREIGN KEY (`Field_id`) REFERENCES `beneficiary_fields` (`Field_id`);
 
 --
 -- Constraints for table `donated`
