@@ -23,13 +23,65 @@ session_start();
     function Less(){
       document.getElementById('1').style.display = 'none';
     }
+    function image1(){
+      var elems1 = document.getElementsByClassName('video');
+      var elems2 = document.getElementsByClassName('documents');
+      var elems3 = document.getElementsByClassName('image');
+      for(var i = 0;i<elems1.length;i++)
+      {
+        elems1[i].style.display = 'none';
+      }
+      for(var i = 0;i<elems2.length;i++)
+      {
+        elems2[i].style.display = 'none';
+      }
+      for(var i = 0;i<elems3.length;i++)
+      {
+        elems3[i].style.display = 'contents';
+      }
+    }
+
+    function video1()
+    {
+      var elems1 = document.getElementsByClassName('image');
+      var elems2 = document.getElementsByClassName('documents');
+      var elems3 = document.getElementsByClassName('video');
+      for(var i = 0;i<elems1.length;i++)
+      {
+        elems1[i].style.display = 'none';
+      }
+      for(var i = 0;i<elems2.length;i++)
+      {
+        elems2[i].style.display = 'none';
+      }
+      for(var i = 0;i<elems3.length;i++)
+      {
+        elems3[i].style.display = 'contents';
+      }
+    }
+
+    function docs1(){
+      var elems1 = document.getElementsByClassName('video');
+      var elems2 = document.getElementsByClassName('image');
+      var elems3 = document.getElementsByClassName('documents');
+      for(var i = 0;i<elems1.length;i++)
+      {
+        elems1[i].style.display = 'none';
+      }
+      for(var i = 0;i<elems2.length;i++)
+      {
+        elems2[i].style.display = 'none';
+      }
+      for(var i = 0;i<elems3.length;i++)
+      {
+        elems3[i].style.display = 'contents';
+      }
+    }
       
     </script>
     <style>
-      .footer{
-        /* background: black;
-        padding: 50px;
-        margin: 50px; */
+      .image{
+        display : contents;
       }
     </style>
   </head>
@@ -164,7 +216,7 @@ session_start();
           </div>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12">
           <div class="tile">
             <div class="tile-body">
@@ -179,88 +231,88 @@ session_start();
                     <th>Files</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody> -->
                 <?php
-                    require 'dbh/dbh.php';
+                    // require 'dbh/dbh.php';
                     
-                    $sql = "SELECT REF_NUM,Project_id,Title,Description,Type FROM projects";
-                    $result = mysqli_query($Conn,$sql);
-                    $confirm = mysqli_num_rows($result);
+                    // $sql = "SELECT REF_NUM,Project_id,Title,Description,Type FROM projects";
+                    // $result = mysqli_query($Conn,$sql);
+                    // $confirm = mysqli_num_rows($result);
 
-                    if($confirm > 0 )
-                    {
+                    // if($confirm > 0 )
+                    // {
         
-                      while($row = mysqli_fetch_assoc($result))
-                      {
-                        $title = $row['Title'];
-                        $Description = $row['Description'];
-                        $Type = $row['Type'];
-                        $Project_id = $row['Project_id'];
-                        $REF = $row['REF_NUM'];
-                        $path = "";
-                        $FDescription = "";
+                    //   while($row = mysqli_fetch_assoc($result))
+                    //   {
+                    //     $title = $row['Title'];
+                    //     $Description = $row['Description'];
+                    //     $Type = $row['Type'];
+                    //     $Project_id = $row['Project_id'];
+                    //     $REF = $row['REF_NUM'];
+                    //     $path = "";
+                    //     $FDescription = "";
 
-                        $sql1 = "SELECT File_name,File_path,File_Description FROM project_files WHERE Project_id = $Project_id";
-                        $result1 = mysqli_query($Conn,$sql1);
-                        $confirm1 = mysqli_num_rows($result1);
+                    //     $sql1 = "SELECT File_name,File_path,File_Description FROM project_files WHERE Project_id = $Project_id";
+                    //     $result1 = mysqli_query($Conn,$sql1);
+                    //     $confirm1 = mysqli_num_rows($result1);
 
-                        if($confirm1 > 0)
-                        {
-                          echo 
-                          "<tr>".
-                                "<td>".$REF."</td>".
-                                "<td>".$title."</td>".
-                                "<td>".$Description."</td>".
-                                "<td>".$Type."</td>".
-                                "<td>"."<i>"."PENDING.."."</i>"."</td>";
+                    //     if($confirm1 > 0)
+                    //     {
+                    //       echo 
+                    //       "<tr>".
+                    //             "<td>".$REF."</td>".
+                    //             "<td>".$title."</td>".
+                    //             "<td>".$Description."</td>".
+                    //             "<td>".$Type."</td>".
+                    //             "<td>"."<i>"."PENDING.."."</i>"."</td>";
                           
-                          echo "<td>";
-                          while($row1 = mysqli_fetch_assoc($result1))
-                          {
-                            $path = $row1['File_path'];
-                            $FDescription = $row1['File_Description'];
-                            $name = $row1['File_name'];
+                    //       echo "<td>";
+                    //       while($row1 = mysqli_fetch_assoc($result1))
+                    //       {
+                    //         $path = $row1['File_path'];
+                    //         $FDescription = $row1['File_Description'];
+                    //         $name = $row1['File_name'];
 
-                            echo "<a href = '$path'>".$FDescription."</a>"."<br>";
-                          }
-                          echo "</td>"."</tr>";
-                        }else{
-                          echo 
-                          "<tr>".
-                                "<td>".$REF."</td>".
-                                "<td>".$title."</td>".
-                                "<td>".$Description."</td>".
-                                "<td>".$Type."</td>".
-                                "<td>"."<i>"."PENDING.."."</i>"."</td>".
-                                "<td>"."No Files Uploaded"."</td>". 
-                          "</tr>";
-                        }
+                    //         echo "<a href = '$path'>".$FDescription."</a>"."<br>";
+                    //       }
+                    //       echo "</td>"."</tr>";
+                    //     }else{
+                    //       echo 
+                    //       "<tr>".
+                    //             "<td>".$REF."</td>".
+                    //             "<td>".$title."</td>".
+                    //             "<td>".$Description."</td>".
+                    //             "<td>".$Type."</td>".
+                    //             "<td>"."<i>"."PENDING.."."</i>"."</td>".
+                    //             "<td>"."No Files Uploaded"."</td>". 
+                    //       "</tr>";
+                    //     }
 
                               
                         
 
-                      }
-                    }
+                    //   }
+                    // }
 
                   ?>
-                </tbody>
+                <!-- </tbody>
               </table>
             </div>
            </div>
         </div>
-      </div>
+      </div> -->
 
       <div class= "row">
           <div class= "col-md-12">
               <div class = "tile">
                   <div class = "tile-body">
                     <center>
-                      <h2>Advanced Search</h2>                     
+                      <h2>Search</h2>                     
                     </center>
                     <form method = 'POST' action = 'projects.php'>
                     <div class="row">
                         <div class="col-md-10">
-                            <input type = 'text' class = 'form-control' name = 'search'>
+                            <input type = 'text' class = 'form-control' name = 'search' required = ''>
                         </div>
                         <div class="col-md-2">
                           <button type = 'submit' class = 'btn btn-info'>Search</button>
@@ -274,15 +326,15 @@ session_start();
                         $words = explode(" ",$search);
                         echo 
                               "<div class='footer1'><center>";           
-                                echo "<button class='btn btn-default' style = 'margin: 20px;'>"."Images"."</button>";
-                                echo "<button class='btn btn-default' style = 'margin: 20px;'>"."Videos"."</button>";
-                                echo "<button class='btn btn-default' style = 'margin: 20px;'>"."Documents"."</button>";
+                                echo "<button class='btn btn-default' type = 'button' style = 'margin: 20px;' onclick= 'image1()'>"."Images"."</button>";
+                                echo "<button class='btn btn-default' type = 'button' style = 'margin: 20px;' onclick = 'video1()'>"."Videos"."</button>";
+                                echo "<button class='btn btn-default' type = 'button' style = 'margin: 20px;' onclick= 'docs1()'>"."Documents"."</button>";
                           echo "</div></center>";
 ;
                         foreach ($words as $word)
                         {
-                          $sql = "SELECT DISTINCT Title,Description,Type,File_path,File_description,File_name FROM projects,project_files WHERE projects.Project_id = project_files.project_id AND 
-                                  file_description = '$word'";
+                          $sql = "SELECT DISTINCT Title,Description,Type,File_path,File_description,File_name,File_Type FROM projects,project_files WHERE projects.Project_id = project_files.project_id AND 
+                                  (file_description = '$word' OR Type = '$word' OR Title = '$word')";
                           $result = mysqli_query($Conn,$sql);
                           $confirm = mysqli_num_rows($result);
                           if($confirm > 0)
@@ -299,11 +351,27 @@ session_start();
                               $path = $row['File_path'];
                               $FDescription = $row['File_description'];
                               $name = $row['File_name'];
-                              echo "<tr>".
+                              $File_Type = $row['File_Type'];
+
+                              if($File_Type == 'png' OR $File_Type == 'jpg' OR $File_Type == 'jpeg')
+                              {
+                                $class = 'image';
+                              }elseif($File_Type == 'pdf' OR $File_Type == 'ppt' OR $File_Type == 'docx')
+                              {
+                                $class = 'documents';
+                              }elseif ($File_Type == 'mkv' OR $File_Type == 'ppt') {
+
+                                $class = 'video';
+                              }else{
+                                $class = 'other';
+                              }
+                               
+                               
+                              echo "<tr class = '$class'>".
                                         "<td>".$row['Title']."</td>".
                                         "<td>".$row['Description']."</td>".
                                         "<td>".$row['Type']."</td>".
-                                        "<td>"."<a href = '$path'>".$FDescription."</a>"."</td>".
+                                        "<td>"."<a href = '$path'>".$FDescription." "."</a>"."</td>".
                               "</tr>";     
                             }
                             echo "</tbody>"."</table>";

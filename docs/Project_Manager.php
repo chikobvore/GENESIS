@@ -127,7 +127,7 @@
         <li><a class="app-menu__item" href="Project_Manager.php"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Home</span></a></li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">New</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="#newproject" data-toggle="modal"><i class="icon fa fa-circle-o"></i>PROJECT</a></li>
+            <li><a class="treeview-item" href="#propose" data-toggle="modal"><i class="icon fa fa-circle-o"></i>PROJECT</a></li>
             <li><a class="treeview-item" href="#newproposal" data-toggle = "modal"><i class="icon fa fa-circle-o"></i>BENEFICIARY INFO</a></li>
             <li><a class="treeview-item" href="#budget" data-toggle ="modal"><i class="icon fa fa-circle-o"></i>BUDGET</a></li>
             <li><a class="treeview-item" href="#newdoc" data-toggle ="modal"><i class="icon fa fa-circle-o"></i>FILE</a></li>
@@ -346,6 +346,65 @@
             }
             }
       ?>
+    <div class="modal fade" id="propose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content"  style="width: 700px;">
+          <div class="modal-header">
+            <h4>New Proposal</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            
+          </div>
+          <div class="modal-body">
+            <form method = "POST" action = "php/addproject.php">
+            <div class="form-group">
+            <label class = 'control-label'>Project Name</label>
+              <input type= 'text' class = 'form-control' name = 'title' required = ''>
+
+            </div>
+
+            <div class="form-group">
+            <label class = 'control-label'>Description</label>
+             <textarea class = "form-control" name = 'description'>
+             </textarea>
+            </div>
+
+            <div class="form-group">
+            <label class = 'control-label'>Project Nature</label>
+              <select class = 'form-control' name = 'type'>
+                <option>Agriculture</option>
+                <option>Energy</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+            <label class = 'control-label'>Project Start</label>
+              <input type= 'date' class = 'form-control' name = 'projectname' required = ''>
+
+            </div>
+
+            <div class="form-group">
+            <label class = 'control-label'>Project End</label>
+              <input type= 'date' class = 'form-control' name = 'projectname' required = ''>
+
+            </div>
+
+            <div class="form-group">
+            <label class = 'control-label'>Project Manager/Coordinator</label>
+              <input type= 'text' class = 'form-control' name = 'supervisor' required = ''>
+
+            </div>
+
+           
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" type = 'submit'>Save Changes</button>
+          </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <!-- modal -->
           <div class="modal fade" id="budget" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content"  style="width: 700px;">
@@ -777,10 +836,17 @@
                     header('location: Project_Manager.php');
 
                 }
+                // if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                //   && $imageFileType != "gif" && $imageFileType != "pdf" && $imageFileType != "doc" && $imageFileType != "mp4"
+                //   && $imageFileType != "mp3" && $imageFileType != "csv") {
+                //       $_SESSION['message'] =  "Un supported File Format";
+                //       $uploadOk = 0;
+                //       header('location: Project_Manager.php');
+                //   }
 
                 if ($uploadOk == 0) 
                 {
-                  $_SESSION['message'] = "Sorry Operation Failed";  
+                  
                   header('location: Project_Manager.php');
                 }else{
                 
@@ -790,8 +856,8 @@
                     $filename = basename($_FILES['file']['name']);
                     $filepath = "files/".$filename;
                     
-                    $sql2  = "INSERT INTO Project_Files(Project_id,File_name, File_description,File_path)
-                    VALUES($Project_id,'$filename','$descript','$filepath')";
+                    $sql2  = "INSERT INTO Project_Files(Project_id,File_name, File_description,File_path,File_Type)
+                    VALUES($Project_id,'$filename','$descript','$filepath','$imageFileType')";
 
                     if($Conn->query($sql2)===TRUE)
                     {

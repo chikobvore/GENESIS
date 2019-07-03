@@ -1,5 +1,6 @@
 <?php
 require '../dbh/dbh.php';
+session_start();
 
 if (isset($_POST['Project']))
 {
@@ -10,7 +11,7 @@ if (isset($_POST['Project']))
 	{
 
 		$field = $_POST['Field'.$i];
-		$sql = "INSERT INTO Beneficiary_Fields (Staff_id,Project_id,Field) VALUES ($Project_id,'$Staff_id',$field')";
+		$sql = "INSERT INTO Beneficiary_Fields (Staff_id,Project_id,Field) VALUES ('$Staff_id',$Project_id,'$field')";
 		if ($Conn->query($sql) == TRUE)
 		{
 			if ($_POST['Subfield'.$i] == 'yes')
@@ -48,5 +49,8 @@ if (isset($_POST['Project']))
 
 		$i = $i + 1;
 	}
+}else{
+	echo "not set";
 }
+// $_SESSION['message'] = $Conn->error;
 header('location: ../beneficiary.php');

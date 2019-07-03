@@ -92,8 +92,8 @@ session_start();
     <aside class="app-sidebar">
       <div class="app-sidebar__user">
         <div>
-          <p class="app-sidebar__user-name"><?php echo $_SESSION['Name']." ".$_SESSION['Surname']; ?></p>
-          <p class="app-sidebar__user-designation"><?php echo $_SESSION['Department']; ?></p>
+          <p class="app-sidebar__user-name"><?php //echo $_SESSION['Name']." ".$_SESSION['Surname']; ?></p>
+          <p class="app-sidebar__user-designation"><?php //echo $_SESSION['Department']; ?></p>
         </div>
       </div>
       <ul class="app-menu">
@@ -218,16 +218,6 @@ session_start();
               </div>
 
               <div class="form-group">
-                <label class="control-label">Specilization</label>
-                <input type="text" name="specilization" class="form-control" required = ''>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Region</label>
-                <input type="text" name="regions" class="form-control" required = ''>
-              </div>
-
-                <div class="form-group">
                 <label class="control-label">Location</label>
                 <input type="text" name="regions" class="form-control" required = ''>
               </div>
@@ -276,6 +266,12 @@ session_start();
               <div class="form-group">
                 <label class="control-label">Global Disbursement</label>
                 <input type="text" name="globaldisbursement" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Additional Notes</label>
+                <textarea name="specilization" class = 'form-control' id="" cols="30" rows="10">
+                </textarea>
               </div>
 
             <div class="modal-footer">

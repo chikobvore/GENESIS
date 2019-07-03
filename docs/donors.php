@@ -225,6 +225,8 @@ session_start();
 
                         }
 
+                      }else{
+                        echo "Error".$sql. "<br>" . $Conn->error;
                       }
                   ?>
                 </tbody>

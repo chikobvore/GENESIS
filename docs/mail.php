@@ -23,6 +23,15 @@ session_start();
     function Less(){
       document.getElementById('1').style.display = 'none';
     }
+    function toggle(source) {
+      checkboxes = document.getElementsByName('foo')
+
+      for (var i = 0, n= checkboxes.length;i < n;i ++)
+      {
+        checkboxes[i].checked = source.checked;
+      }
+      
+    }
       
     </script>
   </head>
@@ -255,7 +264,7 @@ session_start();
                                     "<td>".$row['Organization']."</td>".
                                     "<td>".$row['Contact']."</td>".
                                     "<td>".$row['Email']."</td>".
-                                    "<td>"."<input type= 'checkbox'>"."</td>".
+                                    "<td>"."<input type= 'checkbox' name = 'foo'>"."</td>".
                                 "</tr>";
                         }
                   echo "</tbody></table>";
